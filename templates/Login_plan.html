@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Log In</title>
+
+    <style>
+        body {
+            background: #ffffff;
+        }
+
+        .login-box {
+            max-width: 420px;
+            margin: 60px auto;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 22px 14px;
+        }
+
+        .btn-login {
+            background: #2c2c2c;
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .btn-login:hover {
+            background: #1f1f1f;
+            color: #fff;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 14px;
+        }
+
+        .links a {
+            color: #000;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Plānotājs</a>
+</nav>
+
+<div class="container">
+
+    <div class="login-box">
+
+        {% if error %}
+        <div class="alert alert-warning" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="https://lkupelis.pythonanywhere.com/login_plan" method="POST">
+
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+    </div>
+
+    <button type="submit" class="btn btn-login btn-block">
+        Sign In
+    </button>
+
+    <div class="links">
+        <a href="https://lkupelis.pythonanywhere.com/re_pass_plan">Forgot password?</a>
+        <a href="https://lkupelis.pythonanywhere.com/signup_plan">Sign Up</a>
+    </div>
+
+</form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
