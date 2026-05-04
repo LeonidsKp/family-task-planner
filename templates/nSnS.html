@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<title>Steidzami, bet ne svarīgi</title>
+<style>
+    body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #ffffff;
+        display: flex;
+        justify-content: center;
+    }
+    .app {
+        width: 360px;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        min-height: 100vh;
+    }
+    .header {
+        text-align: center;
+        padding: 20px 16px 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .header h1 {
+        font-size: 18px;
+        margin: 0;
+        font-weight: 600;
+    }
+    .header .count {
+        margin-top: 6px;
+        font-size: 15px;
+        color: #666;
+    }
+    .task-list {
+        flex: 1;
+        padding: 10px 0;
+    }
+    .task {
+        display: flex;
+        align-items: center;
+        padding: 14px 16px;
+        background: #f7eef7;
+        margin: 8px 16px;
+        border-radius: 8px;
+        gap: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .task:hover {
+        background: #f0e6f0;
+    }
+    .task.completed {
+        background: #f0f0f0;
+        opacity: 0.8;
+    }
+    .task.completed .task-text {
+        text-decoration: line-through;
+        color: #999;
+    }
+    .task.completed .icon {
+        border-color: #999;
+        color: #999;
+    }
+    .icon {
+        width: 22px;
+        height: 22px;
+        border: 2px solid #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+    .task-text {
+        flex: 1;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .checkbox {
+        flex-shrink: 0;
+        position: relative;
+    }
+    .checkbox input {
+        display: none;
+    }
+    .checkbox label {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #333;
+        border-radius: 4px;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        background: white;
+    }
+    .checkbox input:checked + label {
+        background: #6a5acd;
+        border-color: #6a5acd;
+    }
+    .checkbox input:checked + label::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+    }
+    .no-tasks {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        font-style: italic;
+        font-size: 14px;
+    }
+    .footer {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid #eee;
+        margin-top: auto;
+    }
+    .add-btn {
+        background: #1f1f1f;
+        color: #ffffff;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 100%;
+        max-width: 280px;
+    }
+    .add-btn:hover {
+        background: #333;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="app">
+    <button class="back-btn" onclick="window.location.href='{{ url_for('profils', child_id=child.id) }}'">
+      ← Atpakaļ
+    </button>
+    <div class="header">
+        <h1>Ne steidzami un ne svarīgi</h1>
+        <div class="count">{{ task_count }} uzdevum{{ 'i' if task_count != 1 else 's' }}</div>
+    </div>
+    <div class="task-list">
+    {% if tasks %}
+        {% for task in tasks %}
+        <div class="task{% if task.izpildits %} completed{% endif %}">
+
+            <div class="icon">☆</div>
+
+            <div class="task-text">
+                {{ task.nosaukums }}
+
+                {% if task.deadline %}
+                <div style="font-size:12px; color:#777;">
+                    Līdz: {{ task.deadline }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="checkbox">
+                <input type="checkbox" id="task{{ task.id }}" {% if task.izpildits %}checked{% endif %} disabled>
+                <label for="task{{ task.id }}"></label>
+            </div>
+
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-tasks">Nav pievienotu uzdevumu</div>
+    {% endif %}
+    </div>
+</div>
+</body>
+</html>

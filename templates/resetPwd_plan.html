@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Paroles maiņa</title>
+
+    <style>
+        body {
+            background: #ffffff;
+        }
+
+        .reset-box {
+            max-width: 420px;
+            margin: 80px auto;
+            padding: 24px;
+            border: 1px solid #e5e5e5;
+            border-radius: 14px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 22px 14px;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #333;
+            border: none;
+            font-size: 15px;
+        }
+
+        .btn-reset {
+            background: #2c2c2c;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: 15px;
+        }
+
+        .btn-reset:hover {
+            background: #1f1f1f;
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Mana viesu grāmata</a>
+</nav>
+
+<div class="container">
+
+    <div class="reset-box">
+
+        {% if error %}
+        <div class="alert alert-warning" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('resetPwd_plan') }}" method="POST">
+
+            <!-- Password -->
+            <div class="form-group">
+                <label>Jaunā parole</label>
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Ievadi jaunu paroli"
+                       required>
+            </div>
+
+            <input type="hidden" name="username" value="{{ username }}">
+
+            <div class="actions">
+                <button type="button" class="btn-cancel"
+                        onclick="window.location.href='{{ url_for('login_plan') }}'">
+                    Cancel
+                </button>
+
+                <button type="submit" class="btn btn-reset">
+                    Reset Password
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

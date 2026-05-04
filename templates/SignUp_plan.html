@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Sign Up</title>
+
+    <style>
+        body {
+            background: #ffffff;
+        }
+
+        .register-box {
+            max-width: 420px;
+            margin: 60px auto;
+            padding: 24px;
+            border: 1px solid #e5e5e5;
+            border-radius: 14px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 22px 14px;
+        }
+
+        .btn-register {
+            background: #2c2c2c;
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .btn-register:hover {
+            background: #1f1f1f;
+            color: #fff;
+        }
+
+        .custom-checkbox label {
+            cursor: pointer;
+        }
+
+        .checkbox-description {
+            font-size: 13px;
+            color: #777;
+            margin-left: 24px;
+            margin-top: -6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Plānotājs</a>
+</nav>
+
+<div class="container">
+
+    <div class="register-box">
+
+        {% if error %}
+        <div class="alert alert-warning" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+<form action="https://lkupelis.pythonanywhere.com/signup_plan" method="POST">
+
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+    </div>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+    </div>
+
+    <div class="form-group">
+        <label>Repeat password</label>
+        <input type="password" name="password1" class="form-control" placeholder="Repeat password" required>
+    </div>
+
+    <!-- Ģimenes ID -->
+    <div class="form-group">
+        <label>Family ID</label>
+        <input type="number" name="family_id" class="form-control" placeholder="Enter family ID (or leave empty to create new)">
+    </div>
+
+    <div class="form-group custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="vecaks" name="vecaks">
+        <label class="custom-control-label" for="vecaks">Vecāks</label>
+        <div class="checkbox-description">
+            Atzīmējiet, ja esat vecāks. Ja neatzīmējat, tiksiet reģistrēts kā bērns.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-register btn-block">
+        Register
+    </button>
+
+</form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

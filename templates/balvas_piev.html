@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Balvas pievienošana</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px 32px 28px 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #d0d0d0;
+      padding: 4px 0 8px 0;
+      font-family: inherit;
+      font-size: 14px;
+      color: #999;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus {
+      border-bottom-color: #111;
+      color: #111;
+    }
+    .field input::placeholder { color: #aaa; }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn-cancel {
+      padding: 10px 22px;
+      border: 1.5px solid #d0d0d0;
+      border-radius: 10px;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #222;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-cancel:hover { background: #f0f0f0; }
+
+    .btn-confirm {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 10px;
+      background: #1a1a1a;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-confirm:hover { background: #333; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Balvas peivienošana</h1>
+    <form method="POST">
+
+  <div class="field">
+    <label>Balvas nosaukums</label>
+    <input type="text" name="title" placeholder="piemēram: Jauna rotaļlieta" required />
+  </div>
+
+  <div class="field">
+    <label>Punktu skaits</label>
+    <input type="number" name="cost" placeholder="piemēram: 100" required />
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn-cancel" onclick="window.history.back()">Atcelt</button>
+    <button type="submit" class="btn-confirm">Apstiprināt</button>
+  </div>
+
+</form>
+    
+  </div>
+</body>
+</html>

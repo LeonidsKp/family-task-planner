@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bērna Profils</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background-color: #f5f6f8;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 24px;
+    }
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 20px 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+    .child-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 20px;
+    }
+    .points {
+      font-size: 18px;
+    }
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .quadrant {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      min-height: 220px;
+    }
+    .quadrant h3 {
+      margin-top: 0;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .task {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .task span {
+      font-weight: 500;
+    }
+    .urgent-important { border-left: 4px solid #dc2626; }
+    .important { border-left: 4px solid #2563eb; }
+    .urgent { border-left: 4px solid #f59e0b; }
+    .low { border-left: 4px solid #10b981; }
+    .footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+    }
+    .add-btn {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+    }
+    .add-btn:hover {
+        background: #333;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="back-btn" onclick="window.location.href='{{ url_for('parsk') }}'">
+      ← Atpakaļ
+    </button>
+    <div class="profile-header">
+      <div class="child-info">
+        <div>
+          <div><strong>{{ child.name }}</strong></div>
+          <div class="points">
+            {{ child.points }} punkti
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="matrix">
+
+      <button type="button" class="quadrant urgent"
+        onclick="window.location.href='{{ url_for('SS', child_id=child.id) }}'">
+        <h3>Steidzami & Svarīgi</h3>
+        <div>{{ task_counts.urgent_important }} uzdevumi</div>
+      </button>
+
+      <button type="button" class="quadrant urgent"
+        onclick="window.location.href='{{ url_for('SnS', child_id=child.id) }}'">
+        <h3>Steidzami, bet ne svarīgi</h3>
+        <div>{{ task_counts.urgent_not_important }} uzdevumi</div>
+      </button>
+
+      <button type="button" class="quadrant urgent"
+        onclick="window.location.href='{{ url_for('nSS', child_id=child.id) }}'">
+        <h3>Nav steidzami, bet svarīgi</h3>
+        <div>{{ task_counts.not_urgent_important }} uzdevumi</div>
+      </button>
+
+      <button type="button" class="quadrant urgent"
+        onclick="window.location.href='{{ url_for('nSnS', child_id=child.id) }}'">
+        <h3>Ne steidzami, ne svarīgi</h3>
+        <div>{{ task_counts.not_urgent_not_important }} uzdevumi</div>
+      </button>
+
+    </div>
+    <div class="footer">
+      <button class="add-btn"
+        onclick="window.location.href='{{ url_for('uzd_piev', child_id=child.id) }}'">
+        + Pievienot jaunu uzdevumu
+      </button>
+    </div>
+
+  </div>
+</body>
+</html>

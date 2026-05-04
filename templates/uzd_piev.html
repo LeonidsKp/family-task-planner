@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <title>Uzdevuma pievienošana</title>
+
+        <style>
+            body {
+                margin: 0;
+                font-family: system-ui, sans-serif;
+                display: flex;
+                justify-content: center;
+            }
+            .app {
+                width: 360px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+
+            label {
+                font-weight: 600;
+                margin-top: 14px;
+                display: block;
+            }
+
+            .hint {
+                font-size: 13px;
+                color: #777;
+                margin-bottom: 10px;
+            }
+
+            input, select {
+                width: 100%;
+                padding: 10px;
+                margin-top: 6px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+            }
+
+            .buttons {
+                margin-top: 20px;
+                display: flex;
+                gap: 10px;
+            }
+
+            button {
+                padding: 10px;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-confirm {
+                background: #1f1f1f;
+                color: white;
+            }
+
+            .btn-cancel {
+                border: 1px solid #999;
+                background: #f2f2f2;
+            }
+
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="app">
+
+            <form method="POST" action="{{ url_for('uzd_piev', child_id=child_id) }}" onsubmit="return validateDate()">
+
+                <h1>Uzdevuma pievienošana</h1>
+
+                {% if error %}
+                <div class="error">{{ error }}</div>
+                {% endif %}
+
+                <label>Uzdevuma nosaukums</label>
+                <input type="text" name="nosaukums" required>
+                <div class="hint">piemēram: Izpildīt mājasdarbus</div>
+
+                <label>Punktu skaits</label>
+                <input type="number" name="punkti" min="0" required>
+                <div class="hint">piemēram: 20</div>
+
+                <label>Jāizpilda līdz</label>
+                <input type="date" name="datums" id="datums" required>
+
+                <label>Prioritāte</label>
+                <select name="priority" required>
+                    <option value="urgent_important">Steidzami & svarīgi</option>
+                    <option value="urgent_not_important">Steidzami, ne svarīgi</option>
+                    <option value="not_urgent_important">Nav steidzami, bet svarīgi</option>
+                    <option value="not_urgent_not_important">Nav steidzami, nav svarīgi</option>
+                </select>
+
+                <div class="buttons">
+                    <button type="button" class="btn-cancel" onclick="history.back()">
+                        Atcelt
+                    </button>
+
+                    <button type="submit" class="btn-confirm">
+                        Apstiprināt
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <script>
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("datums").setAttribute("min", today);
+
+            function validateDate() {
+                const selected = document.getElementById("datums").value;
+                if (selected < today) {
+                    alert("Datums nevar būt pagātnē!");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+
+    </body>
+</html>
